@@ -17,24 +17,28 @@ import javax.swing.SwingUtilities;
 public class Main{
 	
 	public static void print(String s){
-		System.out.println("[NFCParser] "+s);
+		System.out.println("[StatParser] "+s);
 	}
 	
 	public static void testReader(String file){
 		print("This is a testing feature... It will test the reader on a single file and will not save results.");
-		Reader r = new Reader(new File(file)).read().sort();
-		print("The following is the sorted data:");
-		System.out.println(r.toString());
-		print("These are the last entries in the list of each value:");
-		System.out.println(r.getLastString());
+		Reader r;
+		try {
+			r = new Reader(new File(file)).readIn().parse();
+			print("This is the resulting output for this participant.");
+			System.out.println(r.output());
+		} catch (FileNotFoundException e) {
+			System.out.println("The file entered cannot be found. Please try again.");
+		}
+		
 	}
 	
 	
 	
 	public static void readDirectory(String directory, String output){
 		try {
-			RecursiveReader rr = new RecursiveReader(directory, output);
-			rr.getFiles().scanFiles().save();
+			MapReader mr = new MapReader(directory, output);
+			mr.getFiles().scanFiles().save();
 		} catch (FileNotFoundException e) {
 			System.out.println("Sorry but the directory does not seem to exist.");
 		} catch (Exception e) {

@@ -15,4 +15,22 @@
   		<version>1.0.2</version>
   	</dependency>
   </dependencies>
+  <issueManagement>
+  	<system>Github</system>
+  	<url>https://github.com/tyduptyler13/StatsParser/issues</url>
+  </issueManagement>
+  <ciManagement>
+  	<system>Jenkins</system>
+  	<url>http://ci.myuplay.com/job/StatsParser/</url>
+  </ciManagement>
+  <scm>
+  	<url>https://github.com/tyduptyler13/StatsParser</url>
+  </scm>
+  <organization>
+  	<name>MyUPlay</name>
+  	<url>www.myuplay.com</url>
+  </organization>
+  <name>StatParser</name>
+  <url>https://github.com/tyduptyler13/StatsParser</url>
+  <description>This program searches .sts files for certain data and dumps the results of all the files it scans into a preformated file.</description>
 </project>
