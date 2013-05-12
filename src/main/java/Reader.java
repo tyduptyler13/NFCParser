@@ -11,6 +11,7 @@ public class Reader{
 	private boolean vehicleFlag = false;
 	private boolean timeFlag = false;
 	private boolean resourceFlag = false;
+	private boolean error = false;
 
 	public Reader(File file) {
 
@@ -26,8 +27,13 @@ public class Reader{
 			while (s.hasNextLine()){
 				processLine(s.nextLine());
 			}
+		} catch (ArrayIndexOutOfBoundsException e){
+			error = true;
+			Main.print("The file (" + file.getName() + ") is not correctly formated. Is it a trial file? Skipping this data.");
 		} catch (Exception e){
-			Main.print("Something has gone wrong! These results might not work.");
+			error = true;
+			e.printStackTrace();
+			Main.print("Something has gone wrong! Skipping this file.");
 		} finally {
 			s.close();
 		}
@@ -106,7 +112,10 @@ public class Reader{
 	}
 
 	public String output(){
-		return participant.toString();
+		if (error)
+			return "";
+		else
+			return participant.toString();
 	}
 
 }

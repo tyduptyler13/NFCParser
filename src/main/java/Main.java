@@ -40,8 +40,6 @@ public class Main{
 			MapReader mr = new MapReader(new File(directory));
 			mr.getFiles().parse();
 			print(mr.output());
-		} catch (FileNotFoundException e) {
-			System.out.println("Sorry but the directory does not seem to exist.");
 		} catch (Exception e) {
 			System.out.println("An error has occured. System will exit.");
 			System.exit(1);
@@ -56,19 +54,18 @@ public class Main{
 	public static void main(String[] args){
 
 		if (args.length == 1){
-			Main.testReader(args[0]);
+			Main.readDirectory(args[0]);
 		} else if (args.length == 0){
 			SwingUtilities.invokeLater(new Runnable(){
 				public void run(){
 					//GUI.createAndShowGUI();
 				}
 			});
-		} else if (args.length>2){
+		} else if (args.length>1){
 			print("Too many args... Ignoring the extra ones.");
-			print("Usage: StatsParser [dir] [output.file]");
-			print("Dir is the directory you wish to look in and output.file is the filename to print to.");
-		} else {
-			//Main.readDirectory(args[0], args[1]);
+			print("Usage: StatsParser [dir]");
+			print("Dir is the directory you wish to look in.");
+			Main.readDirectory(args[0]);
 		}
 
 	}
