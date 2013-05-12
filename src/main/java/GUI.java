@@ -28,7 +28,7 @@ public class GUI extends JPanel implements ActionListener{
 	protected JButton open, search, parse, save;
 	protected JTextArea console;
 	private File inFolder;
-	private RecursiveReader rr;
+	private MapReader mr;
 	
 	private GUI(){
 		
@@ -38,18 +38,11 @@ public class GUI extends JPanel implements ActionListener{
 		JPanel buttonbar = new JPanel();
 		buttonbar.setLayout(new FlowLayout());
 		
-		open = new JButton("Open Folder");
+		open = new JButton("Open");
 		open.setVerticalTextPosition(AbstractButton.CENTER);
 		open.setHorizontalTextPosition(AbstractButton.LEADING);
 		open.setActionCommand("open");
 		open.addActionListener(this);
-		
-		search = new JButton("Search");
-		search.setVerticalTextPosition(AbstractButton.CENTER);
-		search.setHorizontalTextPosition(AbstractButton.LEADING);
-		search.setActionCommand("search");
-		search.setEnabled(false);
-		search.addActionListener(this);
 		
 		parse = new JButton("Parse");
 		parse.setVerticalTextPosition(AbstractButton.CENTER);
@@ -88,13 +81,25 @@ public class GUI extends JPanel implements ActionListener{
 		if (e.getActionCommand().equals("open")){
 			JFileChooser in = new JFileChooser("Open");
 			in.setCurrentDirectory(new File("."));
-			in.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			in.setAcceptAllFileFilterUsed(false);
+			in.addChoosableFileFilter(new FileFilter(){
+
+				@Override
+				public boolean accept(File f) {
+					return f.getName().endsWith(".sts");
+				}
+
+				@Override
+				public String getDescription() {
+					return "Stat file type.";
+				}
+				
+			});
+			in.setAcceptAllFileFilterUsed(true);
 			
 			if (in.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
 				inFolder = in.getSelectedFile();
 				try {
-					rr = new RecursiveReader(inFolder);
+					mr = new MapReader(inFolder);
 					print("Directory selected.");
 					search.setEnabled(true);
 				} catch (FileNotFoundException e1) {
@@ -104,48 +109,15 @@ public class GUI extends JPanel implements ActionListener{
 			} else {
 				print("No folder selected.");
 			}
-		}else if (e.getActionCommand().equals("search")){
 			print("Scanning \""+inFolder.getPath()+"\" for hst files.");
-			rr.getFiles();
-			print("Finished scanning. Found "+rr.getFileCount()+" files.");
+			mr.getFiles();
+			print("Finished scanning. Found "+mr.getFileCount()+" files.");
 			parse.setEnabled(true);
 		}else if (e.getActionCommand().equals("parse")){
 			print("Parsing files. This can take some time.");
-			rr.scanFiles();
+			mr.scanFiles();
 			print("Results are ready. Please save the results to a file.");
 			save.setEnabled(true);
-		}else if (e.getActionCommand().equals("save")){
-			print("This file will print out as plain text and is copyable to excel.");
-			JFileChooser out = new JFileChooser("Save");
-			out.setCurrentDirectory(new File("."));
-			FileFilter filter = new FileFilter(){
-
-				@Override
-				public boolean accept(File f) {
-					return f.getName().endsWith(".txt");
-				}
-
-				@Override
-				public String getDescription() {
-					return "Text files";
-				}
-				
-			};
-			out.setFileFilter(filter);
-			if (out.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
-				rr.setOut(out.getSelectedFile());
-				print("File selected. Saving...");
-				try {
-					rr.save();
-					print("Results saved to the file.");
-				} catch (Exception e1) {
-					print("An error occured when writing to the file. Try a different one. "+
-							"It may be write protected or you may not have permission in this "+
-							"directory.");
-				}
-			} else {
-				print("No file selected.");
-			}
 		}
 	}
 	
