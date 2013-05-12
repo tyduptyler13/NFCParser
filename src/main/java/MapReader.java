@@ -96,7 +96,9 @@ public class MapReader{
 		
 	}
 	
-	
+	public int getFileCount(){
+		return files.size();
+	}
 	
 	
 }

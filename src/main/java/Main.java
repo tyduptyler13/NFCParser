@@ -58,7 +58,7 @@ public class Main{
 		} else if (args.length == 0){
 			SwingUtilities.invokeLater(new Runnable(){
 				public void run(){
-					//GUI.createAndShowGUI();
+					GUI.createAndShowGUI();
 				}
 			});
 		} else if (args.length>1){
