@@ -24,7 +24,7 @@ public class Main{
 		print("This is a testing feature... It will test the reader on a single file and will not save results.");
 		Reader r;
 		try {
-			r = new Reader(new File(file)).readIn().parse();
+			r = new Reader(new File(file)).readIn();
 			print("This is the resulting output for this participant.");
 			System.out.println(r.output());
 		} catch (FileNotFoundException e) {
@@ -35,10 +35,11 @@ public class Main{
 	
 	
 	
-	public static void readDirectory(String directory, String output){
+	public static void readDirectory(String directory){
 		try {
-			MapReader mr = new MapReader(directory, output);
-			mr.getFiles().scanFiles().save();
+			MapReader mr = new MapReader(new File(directory));
+			mr.getFiles().parse();
+			print(mr.output());
 		} catch (FileNotFoundException e) {
 			System.out.println("Sorry but the directory does not seem to exist.");
 		} catch (Exception e) {
@@ -59,15 +60,15 @@ public class Main{
 		} else if (args.length == 0){
 			SwingUtilities.invokeLater(new Runnable(){
 				public void run(){
-					GUI.createAndShowGUI();
+					//GUI.createAndShowGUI();
 				}
 			});
 		} else if (args.length>2){
 			print("Too many args... Ignoring the extra ones.");
-			print("Usage: hstparser [dir] [output.file]");
+			print("Usage: StatsParser [dir] [output.file]");
 			print("Dir is the directory you wish to look in and output.file is the filename to print to.");
 		} else {
-			Main.readDirectory(args[0], args[1]);
+			//Main.readDirectory(args[0], args[1]);
 		}
 
 	}

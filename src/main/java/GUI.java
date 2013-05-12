@@ -25,6 +25,13 @@ public class GUI extends JPanel implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = -7632908392074124134L;
+
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/*
 	protected JButton open, search, parse, save;
 	protected JTextArea console;
 	private File inFolder;
@@ -152,6 +159,8 @@ public class GUI extends JPanel implements ActionListener{
 		
 		gui.print("Reader is ready. Please choose a folder.");
 	}
+	
+	*/
 	
 	
 	
