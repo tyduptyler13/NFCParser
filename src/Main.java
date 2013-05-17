@@ -57,7 +57,6 @@ public class Main{
 			Main.readDirectory(args[0]);
 		} else if (args.length == 0){
 			SwingUtilities.invokeLater(new Runnable(){
-				@Override
 				public void run(){
 					GUI.createAndShowGUI();
 				}

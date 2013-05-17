@@ -72,7 +72,6 @@ public class GUI extends JPanel implements ActionListener{
 		add(root);
 	}
 	
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("open")){
 			JFileChooser in = new JFileChooser("Open");
