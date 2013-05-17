@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
@@ -40,14 +42,14 @@ public class GUI extends JPanel implements ActionListener{
 		buttonbar.setLayout(new FlowLayout());
 		
 		open = new JButton("Open");
-		open.setVerticalTextPosition(AbstractButton.CENTER);
-		open.setHorizontalTextPosition(AbstractButton.LEADING);
+		open.setVerticalTextPosition(SwingConstants.CENTER);
+		open.setHorizontalTextPosition(SwingConstants.LEADING);
 		open.setActionCommand("open");
 		open.addActionListener(this);
 		
 		parse = new JButton("Parse");
-		parse.setVerticalTextPosition(AbstractButton.CENTER);
-		parse.setHorizontalTextPosition(AbstractButton.LEADING);
+		parse.setVerticalTextPosition(SwingConstants.CENTER);
+		parse.setHorizontalTextPosition(SwingConstants.LEADING);
 		parse.setActionCommand("parse");
 		parse.setEnabled(false);
 		parse.addActionListener(this);
@@ -58,7 +60,7 @@ public class GUI extends JPanel implements ActionListener{
 		console.setLineWrap(true);
 		console.setPreferredSize(new Dimension(450,200));
 		JScrollPane cscroll = new JScrollPane(console);
-		cscroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		cscroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
 		
 		buttonbar.add(open);
@@ -70,6 +72,7 @@ public class GUI extends JPanel implements ActionListener{
 		add(root);
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("open")){
 			JFileChooser in = new JFileChooser("Open");

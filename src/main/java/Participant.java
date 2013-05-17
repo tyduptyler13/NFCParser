@@ -30,6 +30,7 @@ public class Participant{
 			this.treating = treating;
 		}
 		
+		@Override
 		public String toString(){
 			return vehicleNumber + "\t" + idle + "\t" + moving + "\t" +
 					fighting + "\t" + filling + "\t" + treating;
@@ -40,6 +41,7 @@ public class Participant{
 	int[] auto = new int[7];
 	int[] resources = new int[7];
 	
+	@Override
 	public String toString(){
 		
 		String result = "";
